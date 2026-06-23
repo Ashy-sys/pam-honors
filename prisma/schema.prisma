@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Nomination {
+  id       Int    @id @default(autoincrement())
+  artist   String
+  category String
+  reason   String
+}

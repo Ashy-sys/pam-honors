@@ -1,0 +1,22 @@
+export const categories = [
+  "Best Male Artist – Uganda",
+  "Best Female Artist – Uganda",
+  "Best Male Artist – Tanzania",
+  "Best Female Artist – Tanzania",
+  "Best Male Artist – Kenya",
+  "Best Female Artist – Kenya",
+  "Best Male Artist – Rwanda",
+  "Best Female Artist – Rwanda",
+  "Best Male Artist – Burundi",
+  "Best Female Artist – Burundi",
+  "Best Male Artist – South Sudan",
+  "Best Female Artist – South Sudan",
+  "East African Artist of the Year",
+  "East African Song of the Year",
+  "East African Album of the Year",
+  "Best Collaboration – East Africa",
+  "Audio Producer of the Year – East Africa",
+  "Songwriter of the Year – East Africa",
+  "Video Director of the Year – East Africa",
+  "Best Music Video – East Africa"
+];
