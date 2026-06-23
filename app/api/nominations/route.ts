@@ -1,20 +1,34 @@
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
+// GET all nominations
 export async function GET() {
-  const nominations = await prisma.nomination.findMany();
-  return Response.json(nominations);
+  try {
+    const nominations = await prisma.nomination.findMany();
+    return Response.json(nominations);
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to fetch nominations" },
+      { status: 500 }
+    );
+  }
 }
 
+// CREATE nomination
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const newNomination = await prisma.nomination.create({
-    data: {
-      artist: body.artist,
-      category: body.category,
-      reason: body.reason,
-    },
-  });
+    const nomination = await prisma.nomination.create({
+      data: body,
+    });
 
-  return Response.json(newNomination);
+    return Response.json(nomination);
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to create nomination" },
+      { status: 500 }
+    );
+  }
 }
