@@ -1,34 +1,56 @@
-import { prisma } from "@/lib/prisma";
+"use client";
 
-type Nomination = {
-  id: number;
-  artist: string;
-  category: string;
-  reason: string;
-};
+import { useState } from "react";
 
-export default async function NominationsPage() {
-  const nominations: Nomination[] = await prisma.nomination.findMany({
-    orderBy: { id: "desc" },
-  });
+export default function NominationsPage() {
+  const [artist, setArtist] = useState("");
+  const [reason, setReason] = useState("");
+  const [category, setCategory] = useState("");
+
+  async function submitForm(e: React.FormEvent) {
+    e.preventDefault();
+
+    await fetch("/api/nominations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ artist, reason, category }),
+    });
+
+    setArtist("");
+    setReason("");
+    setCategory("");
+
+    alert("Nomination submitted!");
+  }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>All Nominations</h1>
+    <main style={{ padding: 20 }}>
+      <h1>Submit Nomination</h1>
 
-      {nominations.length === 0 ? (
-        <p>No nominations yet</p>
-      ) : (
-        <div style={{ display: "grid", gap: 10 }}>
-          {nominations.map((n: Nomination) => (
-            <div key={n.id} style={{ border: "1px solid #ddd", padding: 10 }}>
-              <h3>{n.artist}</h3>
-              <p><b>Category:</b> {n.category}</p>
-              <p>{n.reason}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      <form onSubmit={submitForm}>
+        <input
+          placeholder="Artist"
+          value={artist}
+          onChange={(e) => setArtist(e.target.value)}
+        />
+        <br />
+
+        <input
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        <br />
+
+        <textarea
+          placeholder="Reason"
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+        />
+        <br />
+
+        <button type="submit">Submit</button>
+      </form>
+    </main>
   );
 }
