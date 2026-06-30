@@ -1,23 +1,79 @@
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
-model Nomination {
-  id        Int      @id @default(autoincrement())
-  artist    String
-  reason    String
-  category  String
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  JUDGE
+  COUNCIL
+}
+
+enum CategoryAccess {
+  COUNCIL
+  JUDGE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(COUNCIL)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  votes     Vote[]
+  logs      AuditLog[]
+}
+
+model Category {
+  id        String          @id @default(cuid())
+  title     String
+  tier      String
+  access    CategoryAccess
+  active    Boolean         @default(true)
+  createdAt DateTime        @default(now())
+
+  nominees  Nominee[]
+  votes     Vote[]
+}
+
+model Nominee {
+  id         String   @id @default(cuid())
+  name       String
+  categoryId String
+  country    String?
+  image      String?
+  createdAt  DateTime @default(now())
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  votes      Vote[]
+}
+
+model Vote {
+  id         String   @id @default(cuid())
+  userId     String
+  categoryId String
+  nomineeId  String
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+  nominee    Nominee  @relation(fields: [nomineeId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  createdAt DateTime @default(now())
+  ip        String?
+
+  user      User     @relation(fields: [userId], references: [id])
 }
