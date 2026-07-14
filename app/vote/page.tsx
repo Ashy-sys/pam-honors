@@ -62,6 +62,15 @@ export default function VotePage() {
     (n: any) => n.categoryId === selectedCategory
   );
 
+  const role = (session?.user as any)?.role;
+
+  // Only show active categories, and if the user has a role, only ones they can vote in
+  const visibleCategories = categories.filter((c: any) => {
+    if (!c.active) return false;
+    if (role === "COUNCIL" || role === "JUDGE") return c.access === role;
+    return true;
+  });
+
   return (
     <div style={{ padding: 20 }}>
       <h1>Vote</h1>
@@ -73,7 +82,7 @@ export default function VotePage() {
       >
         <option value="">Choose category</option>
 
-        {categories.map((c: any) => (
+        {visibleCategories.map((c: any) => (
           <option key={c.id} value={c.id}>
             {c.title}
           </option>

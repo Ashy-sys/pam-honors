@@ -61,9 +61,9 @@ export default function CouncilPage() {
     alert("Vote submitted successfully");
   }
 
-  // Filter ONLY council categories
+  // Filter ONLY council categories that are currently active
   const councilCategories = categories.filter(
-    (c: any) => c.type === "COUNCIL"
+    (c: any) => c.access === "COUNCIL" && c.active
   );
 
   const filteredNominees = nominees.filter(

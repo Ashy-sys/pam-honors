@@ -15,7 +15,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const { name, categoryId, country, image } = body;
+  const { name, categoryId, country, image, reason } = body;
 
   if (!name || !categoryId) {
     return NextResponse.json(
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
       categoryId,
       country,
       image,
+      reason,
     },
   });
 

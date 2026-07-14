@@ -49,9 +49,9 @@ export default function JudgePage() {
     alert("Vote submitted");
   }
 
-  // ONLY JUDGE categories
+  // ONLY JUDGE categories that are currently active
   const judgeCategories = categories.filter(
-    (c: any) => c.type === "JUDGES"
+    (c: any) => c.access === "JUDGE" && c.active
   );
 
   const filteredNominees = nominees.filter(

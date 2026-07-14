@@ -1,14 +1,46 @@
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
+
+export async function GET() {
+  const users = await prisma.user.findMany({
+    select: { id: true, name: true, email: true, role: true, createdAt: true },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return NextResponse.json(users);
+}
 
 export async function POST(req: Request) {
   const body = await req.json();
+  const { name, email, password, role } = body;
+
+  if (!name || !email || !password) {
+    return NextResponse.json(
+      { error: "Missing required fields: name, email, password" },
+      { status: 400 }
+    );
+  }
+
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (existing) {
+    return NextResponse.json(
+      { error: "A user with this email already exists" },
+      { status: 400 }
+    );
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await prisma.user.create({
     data: {
-      name: body.name,
-      email: body.email,
+      name,
+      email,
+      password: hashedPassword,
+      role: role || "COUNCIL",
     },
+    select: { id: true, name: true, email: true, role: true, createdAt: true },
   });
 
-  return Response.json(user);
+  return NextResponse.json(user);
 }

@@ -1,10 +1,16 @@
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const count = await prisma.nomination.count();
+  const [categories, nominees, votes] = await Promise.all([
+    prisma.category.count(),
+    prisma.nominee.count(),
+    prisma.vote.count(),
+  ]);
 
   return Response.json({
     message: "Database connected",
-    totalNominations: count,
+    categories,
+    nominees,
+    votes,
   });
 }

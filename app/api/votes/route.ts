@@ -3,6 +3,16 @@ import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+// GET all votes (used by admin dashboard)
+export async function GET() {
+  const votes = await prisma.vote.findMany({
+    include: { category: true, nominee: true, user: true },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return NextResponse.json(votes);
+}
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
@@ -37,17 +47,20 @@ export async function POST(req: Request) {
     );
   }
 
-  // BASIC ROLE RULES
-  if (user.role === "COUNCIL" && category.type !== "COUNCIL") {
+  if (!category.active) {
     return NextResponse.json(
-      { error: "Council can only vote in Council categories" },
+      { error: "This category is not currently open for voting" },
       { status: 403 }
     );
   }
 
-  if (user.role === "JUDGE" && category.type !== "JUDGES") {
+  // BASIC ROLE RULES — uses the schema's actual "access" field
+  if (
+    (user.role === "COUNCIL" && category.access !== "COUNCIL") ||
+    (user.role === "JUDGE" && category.access !== "JUDGE")
+  ) {
     return NextResponse.json(
-      { error: "Judges can only vote in Judge categories" },
+      { error: `Your role (${user.role}) cannot vote in this category` },
       { status: 403 }
     );
   }
