@@ -16,12 +16,15 @@
   --color-ink-muted: #8A8A8E;
 
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --background: var(--color-base);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-base: var(--color-base);
-  --color-base-surface: var(--color-surface);
-  --color-base-elevated: var(--color-elevated);
+  --color-surface: var(--color-surface);
+  --color-elevated: var(--color-elevated);
 
   --color-gold: var(--color-gold);
   --color-gold-pale: var(--color-gold-pale);
@@ -32,13 +35,11 @@
 
   --color-ink: var(--color-ink);
   --color-ink-muted: var(--color-ink-muted);
-
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-inter);
-  --font-mono: var(--font-jetbrains);
 }
 
-/* Base */
+* {
+  box-sizing: border-box;
+}
 
 html {
   background: var(--color-base);
@@ -50,24 +51,6 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
-/* Hero backgrounds */
-
-.bg-hero {
-  background:
-    radial-gradient(
-      ellipse at 20% 20%,
-      rgba(122,31,43,0.25),
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 80% 70%,
-      rgba(212,175,55,0.12),
-      transparent 50%
-    ),
-    var(--color-base);
-}
-
-/* Animations */
 
 @keyframes fade-up {
   from {
@@ -81,6 +64,7 @@ body {
   }
 }
 
+
 @keyframes pulse-dot {
   0%,100% {
     opacity: 1;
@@ -90,6 +74,7 @@ body {
     opacity: .4;
   }
 }
+
 
 @keyframes drift-glow {
   0%,100% {
@@ -101,43 +86,22 @@ body {
   }
 }
 
-@keyframes count-flip {
-  from {
-    opacity:0;
-    transform:translateY(-8px);
-  }
-
-  to {
-    opacity:1;
-    transform:translateY(0);
-  }
-}
 
 .animate-fade-up {
   animation: fade-up 600ms var(--ease-premium) both;
 }
 
+
 .animate-glow-drift {
   animation: drift-glow 26s var(--ease-premium) infinite;
 }
 
-.animate-pulse-dot {
-  animation: pulse-dot 2s infinite;
-}
-
-.animate-count-flip {
-  animation: count-flip 300ms var(--ease-premium);
-}
-
-
-/* Motion accessibility */
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+
+  .animate-fade-up,
+  .animate-glow-drift {
+    animation:none;
   }
+
 }
