@@ -4,73 +4,91 @@ import { useEffect, useState } from "react";
 import CountdownUnit from "@/components/shared/CountdownUnit";
 
 export default function Countdown() {
+  const targetDate = new Date("2026-12-11T20:00:00").getTime();
 
-  const targetDate = new Date("December 11, 2026 20:00:00").getTime();
-
-  const calculateTime = () => {
-    const now = new Date().getTime();
-    const difference = targetDate - now;
-
-    if (difference <= 0) {
-      return {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-      };
-    }
-
-    return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor(
-        (difference / (1000 * 60 * 60)) % 24
-      ),
-      minutes: Math.floor(
-        (difference / (1000 * 60)) % 60
-      ),
-      seconds: Math.floor(
-        (difference / 1000) % 60
-      ),
-    };
-  };
-
-
-  const [time, setTime] = useState(calculateTime());
-
+  const [mounted, setMounted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 135,
+    hours: 3,
+    minutes: 26,
+    seconds: 0,
+  });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(calculateTime());
-    }, 1000);
+    setMounted(true);
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        });
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(
+          (difference / (1000 * 60 * 60)) % 24
+        ),
+        minutes: Math.floor(
+          (difference / (1000 * 60)) % 60
+        ),
+        seconds: Math.floor(
+          (difference / 1000) % 60
+        ),
+      });
+    };
+
+    updateCountdown();
+
+    const timer = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <section className="relative -mt-20 z-20 px-6">
-      <div className="max-w-5xl mx-auto bg-base-surface border border-gold/20 rounded-3xl p-6 md:p-10 shadow-2xl">
+    <section className="relative py-20 bg-base">
+      <div className="max-w-5xl mx-auto px-6 text-center">
 
-        <div className="text-center mb-8">
-          <p className="text-gold uppercase tracking-[0.3em] text-xs">
-            The Countdown Begins
-          </p>
+        <p className="uppercase tracking-[0.4em] text-sm text-gold mb-4">
+          The Countdown Begins
+        </p>
 
-          <h2 className="font-display text-3xl text-ink mt-3">
-            PAM Honors Night
-          </h2>
-        </div>
+        <h2 className="font-display text-4xl md:text-5xl text-ink mb-10">
+          PAM Honors Night
+        </h2>
 
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-center">
+          <CountdownUnit
+            value={timeLeft.days}
+            label="Days"
+          />
 
-          <CountdownUnit value={time.days} label="Days" />
+          <CountdownUnit
+            value={timeLeft.hours}
+            label="Hours"
+          />
 
-          <CountdownUnit value={time.hours} label="Hours" />
+          <CountdownUnit
+            value={timeLeft.minutes}
+            label="Minutes"
+          />
 
-          <CountdownUnit value={time.minutes} label="Minutes" />
-
-          <CountdownUnit value={time.seconds} label="Seconds" />
+          <CountdownUnit
+            value={timeLeft.seconds}
+            label="Seconds"
+          />
 
         </div>
 
