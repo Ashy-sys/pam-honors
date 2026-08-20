@@ -1,76 +1,76 @@
 generator client {
-  provider = "prisma-client-js"
+provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+provider = "postgresql"
+url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String
-  email     String     @unique
-  password  String
-  role      Role       @default(COUNCIL)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  logs      AuditLog[]
-  votes     Vote[]
+id        String     @id @default(cuid())
+name      String
+email     String     @unique
+password  String
+role      Role       @default(COUNCIL)
+createdAt DateTime   @default(now())
+updatedAt DateTime   @updatedAt
+logs      AuditLog[]
+votes     Vote[]
 }
 
 model Category {
-  id        String         @id @default(cuid())
-  title     String
-  tier      String
-  access    CategoryAccess
-  active    Boolean        @default(true)
-  createdAt DateTime       @default(now())
-  nominees  Nominee[]
-  votes     Vote[]
+id         String         @id @default(cuid())
+title      String
+tier       String
+access     CategoryAccess
+active     Boolean        @default(true)
+createdAt  DateTime       @default(now())
+nominees   Nominee[]
+votes      Vote[]
 }
 
 model Nominee {
-  id         String   @id @default(cuid())
-  name       String
-  categoryId String
-  country    String?
-  image      String?
-  createdAt  DateTime @default(now())
-  reason     String?
-  category   Category @relation(fields: [categoryId], references: [id])
-  votes      Vote[]
+id         String    @id @default(cuid())
+name       String
+categoryId String
+country    String?
+image      String?
+createdAt  DateTime  @default(now())
+reason     String?
+category   Category  @relation(fields: [categoryId], references: [id])
+votes      Vote[]
 }
 
 model Vote {
-  id         String   @id @default(cuid())
-  userId     String
-  categoryId String
-  nomineeId  String
-  createdAt  DateTime @default(now())
-  nominee    Nominee  @relation(fields: [nomineeId], references: [id])
-  category   Category @relation(fields: [categoryId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
+id         String   @id @default(cuid())
+userId     String
+categoryId String
+nomineeId  String
+createdAt  DateTime @default(now())
+nominee    Nominee  @relation(fields: [nomineeId], references: [id])
+category   Category @relation(fields: [categoryId], references: [id])
+user       User     @relation(fields: [userId], references: [id])
 }
 
 model AuditLog {
-  id        String   @id @default(cuid())
-  userId    String
-  action    String
-  createdAt DateTime @default(now())
-  ip        String?
-  user      User     @relation(fields: [userId], references: [id])
+id        String   @id @default(cuid())
+userId    String
+action    String
+createdAt DateTime @default(now())
+ip        String?
+user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Role {
-  SUPER_ADMIN
-  ADMIN
-  JUDGE
-  COUNCIL
+SUPER_ADMIN
+ADMIN
+JUDGE
+COUNCIL
 }
 
 enum CategoryAccess {
-  COUNCIL
-  JUDGE
-  PUBLIC
+COUNCIL
+JUDGE
+PUBLIC
 }
