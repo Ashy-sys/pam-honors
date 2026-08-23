@@ -99,8 +99,8 @@ export default function CategoriesClient({
             </h1>
 
             <p className="mt-8 max-w-2xl text-base leading-7 text-white/50 md:text-lg">
-              Explore the awards celebrating East African music, the people
-              behind it, and the records that shaped the year.
+              Explore the awards celebrating Ugandan music, the people behind
+              it, and the records that shaped the year.
             </p>
           </motion.div>
 
@@ -126,9 +126,9 @@ export default function CategoriesClient({
             </div>
 
             <div>
-              <p className="text-3xl font-semibold">East Africa</p>
+              <p className="text-3xl font-semibold">Uganda</p>
               <p className="mt-1 text-xs tracking-widest text-white/35 uppercase">
-                Region
+                Country
               </p>
             </div>
           </motion.div>
@@ -138,7 +138,7 @@ export default function CategoriesClient({
       {/* Categories */}
       <section className="relative px-6 pb-32 md:px-12 lg:px-20">
         <div className="mx-auto max-w-7xl space-y-24">
-          {grouped.map((group, groupIndex) => {
+          {grouped.map((group) => {
             const info = tierInfo[group.tier];
 
             return (
