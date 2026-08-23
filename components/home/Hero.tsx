@@ -1,31 +1,26 @@
 ﻿"use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-black">
-
-      {/* Red carpet background */}
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.03]"
         style={{ backgroundImage: "url('/hero.png')" }}
       />
 
-      {/* Dark cinematic overlay */}
       <div className="absolute inset-0 bg-black/35" />
 
-      {/* Heavy left-side gradient for typography */}
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/10" />
 
-      {/* Bottom fade */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent" />
 
-      {/* Wine atmosphere */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_45%,rgba(122,31,43,0.30),transparent_40%)]" />
 
-      {/* Grain */}
+      {/* Film grain */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
         style={{
@@ -34,18 +29,16 @@ export default function Hero() {
         }}
       />
 
-      {/* Edge vignette */}
       <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
 
-      {/* Decorative vertical lines */}
+      {/* Vertical lines */}
       <div className="absolute left-[7%] top-0 h-full w-px bg-white/10" />
       <div className="absolute right-[7%] top-0 h-full w-px bg-white/10" />
 
-      {/* Main content */}
+      {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 py-32 lg:px-10">
-
         <div className="max-w-5xl">
-
+          {/* Label */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,10 +48,11 @@ export default function Hero() {
             <span className="h-px w-12 bg-gold" />
 
             <p className="text-xs font-medium uppercase tracking-[0.45em] text-gold">
-              PAM Honors 2026
+              PAM Honors 2027
             </p>
           </motion.div>
 
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,19 +61,14 @@ export default function Hero() {
           >
             Celebrating
             <br />
-
-            <span className="text-gold">
-              Excellence.
-            </span>
-
+            <span className="text-gold">Excellence.</span>
             <br />
-
             Creativity.
             <br />
-
             Achievement.
           </motion.h1>
 
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,6 +80,7 @@ export default function Hero() {
             creativity and achievement.
           </motion.p>
 
+          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,6 +92,7 @@ export default function Hero() {
               className="group inline-flex items-center gap-4 rounded-full bg-gold px-7 py-4 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.03] hover:bg-gold-foil"
             >
               Vote Now
+
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
@@ -115,6 +106,7 @@ export default function Hero() {
             </Link>
           </motion.div>
 
+          {/* Event information */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -125,8 +117,9 @@ export default function Hero() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-white/40">
                 Event
               </p>
+
               <p className="mt-2 text-sm text-white/80">
-                PAM Honors 2026
+                PAM Honors 2027
               </p>
             </div>
 
@@ -134,8 +127,9 @@ export default function Hero() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-white/40">
                 Date
               </p>
+
               <p className="mt-2 text-sm text-white/80">
-                11 December 2026
+                14 February 2027
               </p>
             </div>
 
@@ -143,12 +137,12 @@ export default function Hero() {
               <p className="text-[10px] uppercase tracking-[0.3em] text-white/40">
                 Awards
               </p>
+
               <p className="mt-2 text-sm text-white/80">
                 26 Categories
               </p>
             </div>
           </motion.div>
-
         </div>
       </div>
 
@@ -165,7 +159,6 @@ export default function Hero() {
 
         <div className="h-10 w-px bg-gradient-to-b from-gold to-transparent" />
       </motion.div>
-
     </section>
   );
 }
