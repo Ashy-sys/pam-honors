@@ -9,10 +9,11 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-base/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-5 lg:px-16">
-        
+
         <Link
           href="/"
           className="font-display text-2xl font-semibold text-gold"
+          onClick={() => setOpen(false)}
         >
           PAM HONORS
         </Link>
@@ -30,6 +31,10 @@ export default function Navbar() {
             Judges
           </Link>
 
+          <Link href="/governance" className="text-sm text-ink hover:text-gold">
+            Governance
+          </Link>
+
           <Link href="/about" className="text-sm text-ink hover:text-gold">
             About
           </Link>
@@ -44,6 +49,8 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={open}
           className="text-2xl text-gold lg:hidden"
         >
           ☰
@@ -54,23 +61,51 @@ export default function Navbar() {
       {open && (
         <div className="border-t border-white/10 bg-base px-6 py-6 lg:hidden">
           <div className="flex flex-col gap-5">
-            <Link href="/categories" className="text-ink">
+            <Link
+              href="/categories"
+              className="text-ink hover:text-gold"
+              onClick={() => setOpen(false)}
+            >
               Categories
             </Link>
 
-            <Link href="/nominees" className="text-ink">
+            <Link
+              href="/nominees"
+              className="text-ink hover:text-gold"
+              onClick={() => setOpen(false)}
+            >
               Nominees
             </Link>
 
-            <Link href="/judges" className="text-ink">
+            <Link
+              href="/judges"
+              className="text-ink hover:text-gold"
+              onClick={() => setOpen(false)}
+            >
               Judges
             </Link>
 
-            <Link href="/about" className="text-ink">
+            <Link
+              href="/governance"
+              className="text-ink hover:text-gold"
+              onClick={() => setOpen(false)}
+            >
+              Governance
+            </Link>
+
+            <Link
+              href="/about"
+              className="text-ink hover:text-gold"
+              onClick={() => setOpen(false)}
+            >
               About
             </Link>
 
-            <Link href="/vote" className="text-gold">
+            <Link
+              href="/vote"
+              className="text-gold"
+              onClick={() => setOpen(false)}
+            >
               Vote Now
             </Link>
           </div>
