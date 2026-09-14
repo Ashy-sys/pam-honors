@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,7 @@ const articles = [
   },
   {
     number: "03",
-    title: "Winner Selection Process & Content Restrictions",
+    title: "Winner Selection Process, Voting Architecture & Content Restrictions",
   },
   {
     number: "04",
@@ -389,7 +389,7 @@ export default function GovernancePage() {
             >
               <ArticleHeader
                 number="03"
-                title="Winner Selection Process & Content Restrictions"
+                title="Winner Selection Process, Voting Architecture & Content Restrictions"
               />
 
               <Step number="3.1">
@@ -472,6 +472,101 @@ export default function GovernancePage() {
                       vulgarity or physical violence. Any violating nominated
                       song is immediately disqualified by executive or
                       judicial veto.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* ARTICLE 3.8 */}
+              <div className="mt-14 rounded-3xl border border-white/10 bg-white/[0.025] p-7 sm:p-9">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">
+                    Article 3.8
+                  </span>
+
+                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-white/50">
+                    Three-Tier Voting Architecture
+                  </span>
+                </div>
+
+                <h3 className="mt-5 font-display text-3xl text-ink sm:text-4xl">
+                  Public, Peer-Vetted & Supreme Guild Recognition
+                </h3>
+
+                <p className="mt-5 max-w-3xl text-sm leading-7 text-ink/70 sm:text-base">
+                  To ensure a balanced evaluation that recognizes fan popularity,
+                  technical mastery, artistic merit, and long-term cultural impact,
+                  PAM Honors shall operate through three distinct voting and
+                  recognition streams.
+                </p>
+
+                <div className="mt-10 space-y-10">
+                  <div>
+                    <p className="font-mono text-xs text-gold">
+                      3.8.1 - Tier 1: Public & Popular Engagement Categories
+                    </p>
+
+                    <p className="mt-4 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Mechanism:</strong> 100% fan-driven through approved
+                      public participation systems, including official social media
+                      engagement tracking and verified telecommunications voting
+                      platforms or SMS shortcodes.
+                    </p>
+
+                    <p className="mt-3 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Scope:</strong> This tier shall apply primarily to
+                      established, high-volume artist and popular music categories
+                      where measurable public support, audience reach, market
+                      dominance, and established fanbases form an essential part of
+                      determining the winner.
+                    </p>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-10">
+                    <p className="font-mono text-xs text-gold">
+                      3.8.2 - Tier 2: Technical & Peer-Vetted Categories
+                    </p>
+
+                    <p className="mt-4 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Mechanism:</strong> 100% peer-vetted through an
+                      independent and duly authorized panel of qualified audio
+                      producers, video producers, academy members, and approved
+                      industry professionals.
+                    </p>
+
+                    <p className="mt-3 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Scope:</strong> This tier is designed particularly to
+                      protect and uplift emerging and new-generation talent from pure
+                      popularity contests. Entries shall be assessed on relevant
+                      professional criteria including vocal execution, songwriting,
+                      audio engineering, production quality, visual production,
+                      originality, creative direction, and innovation.
+                    </p>
+                  </div>
+
+                  <div className="border-t border-white/10 pt-10">
+                    <p className="font-mono text-xs text-gold">
+                      3.8.3 - Tier 3: Supreme Guild Recognition & Special Honors
+                    </p>
+
+                    <p className="mt-4 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Mechanism:</strong> 100% guild-driven and decided
+                      exclusively by the Judicial Panel and Legends Council in
+                      accordance with this Constitution and approved judging
+                      criteria.
+                    </p>
+
+                    <p className="mt-3 text-sm leading-7 text-ink sm:text-base">
+                      <strong>Scope:</strong> This tier is reserved for the highest
+                      institutional recognitions of PAM Honors. Consideration may
+                      include verified industry data, artistic excellence, cultural
+                      influence, sustained contribution, professional legacy, and
+                      long-term impact on the music industry.
+                    </p>
+
+                    <p className="mt-3 text-sm leading-7 text-ink sm:text-base">
+                      This tier shall include premier recognitions including
+                      <strong> Artist of the Year</strong> and the
+                      <strong> Lifetime Achievement / Honorary Awards</strong>.
                     </p>
                   </div>
                 </div>
