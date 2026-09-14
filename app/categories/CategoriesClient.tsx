@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -21,7 +21,7 @@ const tierInfo: Record<string, TierInfo> = {
     number: "01",
     subtitle: "VOTERS GUILD / PRODUCER-VETTED",
     description:
-      "Categories vetted and decided by audio producers, academy members and industry experts through the PAM Honors voting portal.",
+      "Categories vetted and decided by audio and video producers, academy members and industry experts through the PAM Honors voting portal.",
   },
   "Special Honors": {
     number: "02",

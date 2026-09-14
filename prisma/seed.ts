@@ -46,8 +46,8 @@ const categories = [
   },
   {
     title: "Audio Producer of the Year",
-    tier: "Track B",
-    access: CategoryAccess.COUNCIL,
+    tier: "Special Honors",
+    access: CategoryAccess.JUDGE,
   },
   {
     title: "Songwriter of the Year",
@@ -56,8 +56,8 @@ const categories = [
   },
   {
     title: "Video Director of the Year",
-    tier: "Track B",
-    access: CategoryAccess.COUNCIL,
+    tier: "Special Honors",
+    access: CategoryAccess.JUDGE,
   },
 
   // SPECIAL HONORS: JUDGES & BOARD
