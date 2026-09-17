@@ -27,4 +27,4 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 
-// Touch: trigger production deployment after Search Console verification setup.
+// Deployment check: confirm only the official Vercel project responds to main.
