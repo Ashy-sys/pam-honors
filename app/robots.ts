@@ -8,12 +8,7 @@ function getSiteUrl() {
       : `https://${configuredUrl.replace(/\/$/, "")}`;
   }
 
-  const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
-  if (productionHost) {
-    return `https://${productionHost.replace(/\/$/, "")}`;
-  }
-
-  return "http://localhost:3000";
+  return "https://pam-honors-rb8c.vercel.app";
 }
 
 export default function robots(): MetadataRoute.Robots {
