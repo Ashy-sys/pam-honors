@@ -26,3 +26,5 @@ export default function robots(): MetadataRoute.Robots {
     host: siteUrl,
   };
 }
+
+// Touch: trigger production deployment after Search Console verification setup.
