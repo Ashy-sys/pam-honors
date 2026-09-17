@@ -27,4 +27,4 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 
-// Deployment check: confirm only the official Vercel project responds to main.
+// Deployment check: verify duplicate Vercel Git connections are disconnected.
