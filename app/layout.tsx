@@ -32,6 +32,7 @@ const jetbrains = JetBrains_Mono({
 
 function getSiteUrl() {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
   if (configuredUrl) {
     return configuredUrl.startsWith("http")
       ? configuredUrl.replace(/\/$/, "")
@@ -45,23 +46,27 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+
   title: {
-    default: "PAM Honors | Pan Africa Music Honors",
+    default: "PAM Honors | Pan Africa Music Honors Uganda",
     template: "%s | PAM Honors",
   },
+
   description:
-    "PAM Honors celebrates excellence in Ugandan music through transparent recognition, public participation, and industry-led judging.",
+    "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
+
   applicationName: "PAM Honors",
+
   keywords: [
     "PAM Honors",
     "Pan Africa Music Honors",
+    "PAM Honors Uganda",
+    "Pan Africa Music Honors Uganda",
     "Uganda music awards",
     "Ugandan music",
     "music awards Uganda",
   ],
-  alternates: {
-    canonical: "/",
-  },
+
   robots: {
     index: true,
     follow: true,
@@ -73,36 +78,77 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+
   openGraph: {
     type: "website",
     locale: "en_UG",
-    url: "/",
+    url: siteUrl,
     siteName: "PAM Honors",
-    title: "PAM Honors | Pan Africa Music Honors",
+    title: "PAM Honors | Pan Africa Music Honors Uganda",
     description:
-      "PAM Honors celebrates excellence in Ugandan music through transparent recognition, public participation, and industry-led judging.",
+      "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
   },
+
   twitter: {
-    card: "summary_large_image",
-    title: "PAM Honors | Pan Africa Music Honors",
+    card: "summary",
+    title: "PAM Honors | Pan Africa Music Honors Uganda",
     description:
-      "PAM Honors celebrates excellence in Ugandan music through transparent recognition, public participation, and industry-led judging.",
+      "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
   },
-  icons: {
-    icon: "/favicon.ico",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: "PAM Honors",
+  alternateName: "Pan Africa Music Honors",
+  url: siteUrl,
+  logo: `${siteUrl}/icon.png`,
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: "PAM Honors",
+  alternateName: "Pan Africa Music Honors",
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
   },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body
         className={`${fraunces.variable} ${inter.variable} ${jetbrains.variable}`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd).replace(
+              /</g,
+              "\\u003c"
+            ),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd).replace(
+              /</g,
+              "\\u003c"
+            ),
+          }}
+        />
+
         <Providers>
           <Navbar />
 
