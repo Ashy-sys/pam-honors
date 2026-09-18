@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 function getSiteUrl() {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+
   if (configuredUrl) {
     return configuredUrl.startsWith("http")
       ? configuredUrl.replace(/\/$/, "")
@@ -19,12 +20,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/login"],
+        disallow: ["/admin/", "/api/", "/login", "/design-test"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
   };
 }
-
-// Deployment check: verify duplicate Vercel Git connections are disconnected.
