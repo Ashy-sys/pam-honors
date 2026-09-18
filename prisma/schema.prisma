@@ -8,15 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String
-  email     String     @unique
-  password  String
-  role      Role       @default(COUNCIL)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  logs      AuditLog[]
-  votes     Vote[]
+  id                String     @id @default(cuid())
+  name              String
+  email             String     @unique
+  password          String?
+  role              Role       @default(VOTER)
+  setupTokenHash    String?    @unique
+  setupTokenExpires DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  logs              AuditLog[]
+  votes             Vote[]
 }
 
 model Category {
@@ -67,6 +69,7 @@ enum Role {
   ADMIN
   JUDGE
   COUNCIL
+  VOTER
 }
 
 enum CategoryAccess {
