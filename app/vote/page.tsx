@@ -67,9 +67,19 @@ export default function VotePage() {
   // Only show active categories, and if the user has a role, only ones they can vote in
   const visibleCategories = categories.filter((c: any) => {
     if (!c.active) return false;
+    if (role === "VOTER" || !role) return c.access === "PUBLIC";
     if (role === "COUNCIL" || role === "JUDGE") return c.access === role;
-    return true;
+    return false; // ADMIN and SUPER_ADMIN have no voting controls
   });
+
+  if (role === "ADMIN" || role === "SUPER_ADMIN") {
+    return (
+      <div style={{ padding: 20 }}>
+        <h1>Vote</h1>
+        <p>Administrators (Admin / Super Admin) cannot vote in categories. This is a management role.</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: 20 }}>

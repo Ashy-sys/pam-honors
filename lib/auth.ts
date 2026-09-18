@@ -8,6 +8,8 @@ export async function validateUser(email: string, password: string) {
 
   if (!user) return null;
 
+  if (!user.password) return null;
+
   const isValid = await bcrypt.compare(password, user.password);
 
   if (!isValid) return null;

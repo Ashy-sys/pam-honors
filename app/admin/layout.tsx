@@ -19,6 +19,7 @@ export default function AdminLayout({
 
         <nav style={{ marginTop: 20 }}>
           <p><Link href="/admin">Dashboard</Link></p>
+          <p><Link href="/admin/users">Users</Link></p>
           <p><Link href="/admin/categories">Categories</Link></p>
           <p><Link href="/admin/nominees">Nominees</Link></p>
           <p><Link href="/admin/votes">Votes</Link></p>

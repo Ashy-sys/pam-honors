@@ -193,36 +193,38 @@ function CategoryCard({
   const isJudge = category.access === "JUDGE";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.45,
-        delay: Math.min(index * 0.05, 0.3),
-      }}
-      whileHover={{ y: -4 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 transition-colors duration-300 hover:border-yellow-400/30 hover:bg-white/[0.045] md:p-7"
-    >
-      <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-yellow-400/[0.08] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+    <Link href={`/categories/${category.id}`} className="block">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{
+          duration: 0.45,
+          delay: Math.min(index * 0.05, 0.3),
+        }}
+        whileHover={{ y: -4 }}
+        className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 transition-colors duration-300 hover:border-yellow-400/30 hover:bg-white/[0.045] md:p-7"
+      >
+        <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-yellow-400/[0.08] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
-      <div className="relative">
-        <p className="text-lg font-medium leading-7 text-white md:text-xl">
-          {category.title}
-        </p>
+        <div className="relative">
+          <p className="text-lg font-medium leading-7 text-white md:text-xl">
+            {category.title}
+          </p>
 
-        <div className="mt-4">
-          {isJudge ? (
-            <span className="rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-purple-300">
-              Judges & Board
-            </span>
-          ) : (
-            <span className="rounded-full border border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-yellow-300">
-              Voters Guild / Producer-Vetted
-            </span>
-          )}
+          <div className="mt-4">
+            {isJudge ? (
+              <span className="rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-purple-300">
+                Judges & Board
+              </span>
+            ) : (
+              <span className="rounded-full border border-yellow-400/20 bg-yellow-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-yellow-300">
+                Voters Guild / Producer-Vetted
+              </span>
+            )}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 }

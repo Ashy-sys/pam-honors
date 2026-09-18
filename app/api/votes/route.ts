@@ -35,6 +35,26 @@ export async function POST(req: Request) {
 
   const user = session.user as any;
 
+  // Never trust role supplied by browser session/token â€” fetch fresh from database
+  const dbUser = await prisma.user.findUnique({
+    where: { id: user.id },
+  });
+
+  if (!dbUser) {
+    return NextResponse.json(
+      { error: "User not found" },
+      { status: 401 }
+    );
+  }
+
+  // ADMIN and SUPER_ADMIN cannot vote
+  if (dbUser.role === "ADMIN" || dbUser.role === "SUPER_ADMIN") {
+    return NextResponse.json(
+      { error: "Administrators cannot vote" },
+      { status: 403 }
+    );
+  }
+
   // ROLE CHECK (core logic)
   const category = await prisma.category.findUnique({
     where: { id: categoryId },
@@ -54,14 +74,34 @@ export async function POST(req: Request) {
     );
   }
 
-  // BASIC ROLE RULES — uses the schema's actual "access" field
+  // BASIC ROLE RULES â€” matches role to category access
   if (
-    (user.role === "COUNCIL" && category.access !== "COUNCIL") ||
-    (user.role === "JUDGE" && category.access !== "JUDGE")
+    (dbUser.role === "VOTER" && category.access !== "PUBLIC") ||
+    (dbUser.role === "COUNCIL" && category.access !== "COUNCIL") ||
+    (dbUser.role === "JUDGE" && category.access !== "JUDGE")
   ) {
     return NextResponse.json(
-      { error: `Your role (${user.role}) cannot vote in this category` },
+      { error: `Your role (${dbUser.role}) cannot vote in this category` },
       { status: 403 }
+    );
+  }
+
+  // Validate nominee exists and matches categoryId
+  const nominee = await prisma.nominee.findUnique({
+    where: { id: nomineeId },
+  });
+
+  if (!nominee) {
+    return NextResponse.json(
+      { error: "Nominee not found" },
+      { status: 404 }
+    );
+  }
+
+  if (nominee.categoryId !== categoryId) {
+    return NextResponse.json(
+      { error: "Nominee does not belong to this category" },
+      { status: 400 }
     );
   }
 
@@ -80,13 +120,24 @@ export async function POST(req: Request) {
     );
   }
 
-  const vote = await prisma.vote.create({
-    data: {
-      userId: user.id,
-      nomineeId,
-      categoryId,
-    },
-  });
+  try {
+    const vote = await prisma.vote.create({
+      data: {
+        userId: user.id,
+        nomineeId,
+        categoryId,
+      },
+    });
 
-  return NextResponse.json(vote);
+    return NextResponse.json(vote);
+  } catch (error: any) {
+    // Gracefully handle unique-constraint conflict (Prisma P2002)
+    if (error?.code === "P2002") {
+      return NextResponse.json(
+        { error: "Already voted in this category" },
+        { status: 400 }
+      );
+    }
+    throw error;
+  }
 }

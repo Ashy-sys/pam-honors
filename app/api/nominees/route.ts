@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 
-// GET nominees
 export async function GET() {
   const nominees = await prisma.nominee.findMany({
     include: { category: true },
@@ -11,27 +12,31 @@ export async function GET() {
   return NextResponse.json(nominees);
 }
 
-// CREATE nominee
 export async function POST(req: Request) {
-  const body = await req.json();
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
+  const body = await req.json();
   const { name, categoryId, country, image, reason } = body;
 
-  if (!name || !categoryId) {
+  if (!name || typeof name !== "string" || !categoryId || typeof categoryId !== "string") {
     return NextResponse.json(
-      { error: "Missing required fields" },
+      { error: "Missing or invalid required fields (name, categoryId)" },
       { status: 400 }
     );
   }
 
   const nominee = await prisma.nominee.create({
     data: {
-      name,
+      name: name.trim(),
       categoryId,
-      country,
-      image,
-      reason,
+      country: country ? country.trim() : null,
+      image: image ? image.trim() : null,
+      reason: reason ? reason.trim() : null,
     },
+    include: { category: true },
   });
 
   return NextResponse.json(nominee);
