@@ -21,13 +21,13 @@ const tierInfo: Record<string, TierInfo> = {
     number: "01",
     subtitle: "VOTERS GUILD / PRODUCER-VETTED",
     description:
-      "Categories vetted and decided by audio and video producers, academy members and industry experts through the PANH voting portal.",
+      "Categories vetted and decided by audio and video producers, academy members and industry experts through the PAMH voting portal.",
   },
   "Special Honors": {
     number: "02",
     subtitle: "JUDGES & BOARD",
     description:
-      "Special honors decided exclusively by the PANH judges and board.",
+      "Special honors decided exclusively by the PAMH judges and board.",
   },
 };
 
@@ -60,7 +60,7 @@ export default function CategoriesClient({
             transition={{ duration: 0.8 }}
           >
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.45em] text-yellow-400">
-              PANH Uganda
+              PAMH Uganda
             </p>
 
             <h1 className="max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
@@ -71,7 +71,7 @@ export default function CategoriesClient({
             </h1>
 
             <p className="mt-8 max-w-2xl text-base leading-7 text-white/50 md:text-lg">
-              Explore the official PANH categories celebrating artists,
+              Explore the official PAMH categories celebrating artists,
               creators and music professionals across Uganda.
             </p>
           </motion.div>
@@ -159,7 +159,7 @@ export default function CategoriesClient({
       <section className="relative border-t border-white/10 px-6 py-24 md:px-12 lg:px-20">
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-yellow-400">
-            PANH
+            PAMH
           </p>
 
           <h2 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">
@@ -168,7 +168,7 @@ export default function CategoriesClient({
 
           <p className="mx-auto mt-6 max-w-xl text-white/40">
             Voting access and eligibility depend on the category structure and
-            PANH governance framework.
+            PAMH governance framework.
           </p>
 
           <Link

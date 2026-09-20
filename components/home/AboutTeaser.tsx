@@ -6,12 +6,12 @@ export default function AboutTeaser() {
     <section>
       <SectionContainer>
         <SectionHeading
-          eyebrow="About PANH"
+          eyebrow="About PAMH"
           title="Celebrating Excellence, Creativity and Impact"
         />
 
         <p className="mt-6 max-w-3xl text-gray-400">
-          PANH celebrates outstanding talent, creativity and
+          PAMH celebrates outstanding talent, creativity and
           contribution by recognizing individuals who continue to shape
           culture and inspire communities.
         </p>

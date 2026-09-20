@@ -22,43 +22,41 @@ function CountdownBox({
   );
 }
 
+const kampalaDateFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "Africa/Kampala",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
 export default function Countdown() {
-  // PANH 2027
-  // Event date: 14 February 2027 at 8:00 PM
-  const targetDate = new Date("2027-02-14T20:00:00").getTime();
+  // PAMH 2027
+  // Event day: 12 February 2027 in Kampala (East Africa Time)
+  const targetDay = Date.UTC(2027, 1, 12);
 
   const [mounted, setMounted] = useState(false);
-
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [countdown, setCountdown] = useState<
+    { status: "countdown"; days: number } | { status: "event-day" } | { status: "past" } | null
+  >(null);
 
   useEffect(() => {
     setMounted(true);
 
     const updateCountdown = () => {
-      const difference = targetDate - new Date().getTime();
+      const parts = kampalaDateFormatter.formatToParts(new Date());
+      const year = Number(parts.find((part) => part.type === "year")?.value);
+      const month = Number(parts.find((part) => part.type === "month")?.value);
+      const day = Number(parts.find((part) => part.type === "day")?.value);
+      const today = Date.UTC(year, month - 1, day);
+      const daysRemaining = Math.round((targetDay - today) / 86400000);
 
-      if (difference <= 0) {
-        setTimeLeft({
-          days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-        });
-
-        return;
+      if (daysRemaining === 0) {
+        setCountdown({ status: "event-day" });
+      } else if (daysRemaining < 0) {
+        setCountdown({ status: "past" });
+      } else {
+        setCountdown({ status: "countdown", days: daysRemaining });
       }
-
-      setTimeLeft({
-        days: Math.floor(difference / 86400000),
-        hours: Math.floor((difference / 3600000) % 24),
-        minutes: Math.floor((difference / 60000) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      });
     };
 
     updateCountdown();
@@ -66,7 +64,7 @@ export default function Countdown() {
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [targetDay]);
 
   if (!mounted) {
     return null;
@@ -76,19 +74,26 @@ export default function Countdown() {
     <section className="relative bg-base py-20">
       <div className="mx-auto max-w-5xl px-6 text-center">
         <p className="mb-4 text-sm uppercase tracking-[0.4em] text-gold">
-          The Countdown Begins
+          {countdown?.status === "event-day" ? "12 February 2027" : "The Countdown Begins"}
         </p>
 
         <h2 className="mb-10 font-display text-4xl text-ink md:text-5xl">
           The Honor Night
         </h2>
 
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
-          <CountdownBox value={timeLeft.days} label="Days" />
-          <CountdownBox value={timeLeft.hours} label="Hours" />
-          <CountdownBox value={timeLeft.minutes} label="Minutes" />
-          <CountdownBox value={timeLeft.seconds} label="Seconds" />
-        </div>
+        {countdown?.status === "countdown" ? (
+          <div className="flex justify-center">
+            <CountdownBox value={countdown.days} label="Days Remaining" />
+          </div>
+        ) : countdown?.status === "event-day" ? (
+          <p role="status" className="font-display text-3xl text-gold md:text-4xl">
+            Event Day
+          </p>
+        ) : countdown?.status === "past" ? (
+          <p role="status" className="font-display text-2xl text-ink-muted">
+            The event date has passed.
+          </p>
+        ) : null}
       </div>
     </section>
   );

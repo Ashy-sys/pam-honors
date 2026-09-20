@@ -14,7 +14,7 @@ export default function StatsStrip() {
           </div>
 
           <div>
-            <AnimatedNumber value={20} />
+            <AnimatedNumber value={22} />
             <p className="text-sm text-gray-400 mt-2">
               Categories
             </p>

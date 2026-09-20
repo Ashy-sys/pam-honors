@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import crypto from "crypto";
+import { getSiteUrl } from "@/lib/site-url";
 
 export async function GET() {
   // Authenticate session
@@ -89,27 +90,49 @@ export async function POST(req: Request) {
   // Check duplicate email
   const existing = await prisma.user.findUnique({ where: { email: trimmedEmail } });
   if (existing) {
-    return NextResponse.json({ error: "Email already exists" }, { status: 409 });
+    return NextResponse.json(
+      { error: "A team account with that email already exists." },
+      { status: 409 }
+    );
   }
 
   // Generate a secure random 32-byte setup token (hex encoded)
   const setupToken = crypto.randomBytes(32).toString("hex");
   const setupTokenHash = crypto.createHash("sha256").update(setupToken).digest("hex");
   const setupTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours from now
+  const setupUrl = new URL("/setup-password", getSiteUrl());
+  setupUrl.searchParams.set("token", setupToken);
 
   // Create user with password set to null and store setup token hash & expiry
-  const user = await prisma.user.create({
-    data: {
-      name: trimmedName,
-      email: trimmedEmail,
-      password: null,
-      role: finalRole,
-      setupTokenHash,
-      setupTokenExpires,
-    },
-    select: { id: true, name: true, email: true, role: true, createdAt: true },
-  });
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name: trimmedName,
+        email: trimmedEmail,
+        password: null,
+        role: finalRole,
+        setupTokenHash,
+        setupTokenExpires,
+      },
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
+    });
 
-  // Do NOT return the raw token or its hash
-  return NextResponse.json(user);
+    // The one-time link is returned only by this successful invitation response.
+    return NextResponse.json({ ...user, setupUrl: setupUrl.toString() });
+  } catch (error) {
+    // A concurrent invite may win the unique-email race after the pre-check.
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "P2002"
+    ) {
+      return NextResponse.json(
+        { error: "A team account with that email already exists." },
+        { status: 409 }
+      );
+    }
+
+    throw error;
+  }
 }

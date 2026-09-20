@@ -93,7 +93,7 @@ export default function GovernancePage() {
 
             <div className="mt-10 border-l border-gold/40 pl-5">
               <p className="font-display text-xl text-ink sm:text-2xl">
-                Pan Africa Music Honors (PANH)
+                Pan Africa Music Honors (PAMH)
               </p>
 
               <p className="mt-2 text-sm uppercase tracking-[0.2em] text-ink-muted">
@@ -175,7 +175,7 @@ export default function GovernancePage() {
 
             <div className="mt-10 hidden border-t border-white/10 pt-5 lg:block">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-                PANH
+                PAMH
               </p>
 
               <p className="mt-2 text-xs leading-5 text-ink-muted">
@@ -195,7 +195,7 @@ export default function GovernancePage() {
               <blockquote className="mt-8 border-l-2 border-gold pl-6 font-display text-2xl italic leading-relaxed text-ink sm:text-3xl">
                 “We, the architects, custodians, and creators of Ugandan music
                 and creative arts, hereby establish the Pan Africa Music Honors
-                (PANH) - Inaugural Uganda Edition.”
+                (PAMH) - Inaugural Uganda Edition.”
               </blockquote>
 
               <p className="mt-8 max-w-3xl text-base leading-8 text-ink-muted">
@@ -219,7 +219,7 @@ export default function GovernancePage() {
 
               <Clause number="1.1" title="Official Name">
                 <p>
-                  Pan Africa Music Honors (PANH) Inaugural Uganda Edition.
+                  Pan Africa Music Honors (PAMH) Inaugural Uganda Edition.
                 </p>
               </Clause>
 
@@ -239,7 +239,7 @@ export default function GovernancePage() {
                 <p>
                   The inaugural edition, live broadcast gala, and flagship
                   award ceremony shall be held strictly in Kampala, Uganda on
-                  February 12th, 2027. Kampala shall remain the permanent
+                  12 February 2027. Kampala shall remain the permanent
                   founding hub.
                 </p>
               </Clause>
@@ -304,7 +304,7 @@ export default function GovernancePage() {
               <Clause number="2.2" title="Legislative">
                 <p>
                   <strong className="text-ink">
-                    PANH Uganda Legends Council:
+                    PAMH Uganda Legends Council:
                   </strong>{" "}
                   respected Ugandan music veterans, pioneers, and cultural
                   custodians representing the central, northern, eastern, and
@@ -321,7 +321,7 @@ export default function GovernancePage() {
               <Clause number="2.3" title="Judicial">
                 <p>
                   <strong className="text-ink">
-                    PANH Judicial Panel:
+                    PAMH Judicial Panel:
                   </strong>{" "}
                   nine independent vetted judges.
                 </p>
@@ -366,7 +366,7 @@ export default function GovernancePage() {
               <Clause number="2.4" title="Voting">
                 <p>
                   <strong className="text-ink">
-                    PANH Academy & Public Voting Council:
+                    PAMH Academy & Public Voting Council:
                   </strong>{" "}
                   vetted Ugandan entertainment journalists, DJs, industry
                   professionals, and the voting public.
@@ -495,7 +495,7 @@ export default function GovernancePage() {
                 <p className="mt-5 max-w-3xl text-sm leading-7 text-ink/70 sm:text-base">
                   To ensure a balanced evaluation that recognizes fan popularity,
                   technical mastery, artistic merit, and long-term cultural impact,
-                  PANH shall operate through three distinct voting and
+                  PAMH shall operate through three distinct voting and
                   recognition streams.
                 </p>
 
@@ -557,7 +557,7 @@ export default function GovernancePage() {
 
                     <p className="mt-3 text-sm leading-7 text-ink sm:text-base">
                       <strong>Scope:</strong> This tier is reserved for the highest
-                      institutional recognitions of PANH. Consideration may
+                      institutional recognitions of PAMH. Consideration may
                       include verified industry data, artistic excellence, cultural
                       influence, sustained contribution, professional legacy, and
                       long-term impact on the music industry.
@@ -685,7 +685,7 @@ export default function GovernancePage() {
 
                 <div className="mt-6 flex flex-wrap justify-between gap-4">
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-                    PANH · Inaugural Uganda Edition
+                    PAMH · Inaugural Uganda Edition
                   </span>
 
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">

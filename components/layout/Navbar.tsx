@@ -15,7 +15,7 @@ export default function Navbar() {
           className="font-display text-2xl font-semibold text-gold"
           onClick={() => setOpen(false)}
         >
-          PANH
+          PAMH
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">

@@ -51,9 +51,9 @@ function SetupPasswordForm() {
         return;
       }
 
-      setSuccess("Password setup successful! Redirecting to login...");
+      setSuccess("Your account is ready. Redirecting to login...");
       setTimeout(() => {
-        router.push("/login");
+        router.push("/login?setup=complete");
       }, 2000);
     } catch (err) {
       setError("An unexpected error occurred.");
@@ -76,8 +76,9 @@ function SetupPasswordForm() {
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginTop: 10 }}>
-          <label style={{ display: "block", marginBottom: 5, fontSize: 14, fontWeight: 500 }}>New Password</label>
+          <label htmlFor="new-password" style={{ display: "block", marginBottom: 5, fontSize: 14, fontWeight: 500 }}>New Password</label>
           <input
+            id="new-password"
             type="password"
             placeholder="At least 8 characters"
             value={password}
@@ -88,8 +89,9 @@ function SetupPasswordForm() {
         </div>
 
         <div style={{ marginTop: 15 }}>
-          <label style={{ display: "block", marginBottom: 5, fontSize: 14, fontWeight: 500 }}>Confirm Password</label>
+          <label htmlFor="confirm-password" style={{ display: "block", marginBottom: 5, fontSize: 14, fontWeight: 500 }}>Confirm Password</label>
           <input
+            id="confirm-password"
             type="password"
             placeholder="Confirm new password"
             value={confirmPassword}

@@ -74,7 +74,7 @@ const categories = [
 ];
 
 async function main() {
-  console.log("Seeding PANH final categories...");
+  console.log("Seeding PAMH final categories...");
 
   for (const category of categories) {
     const existing = await prisma.category.findFirst({

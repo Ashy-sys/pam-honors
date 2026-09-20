@@ -12,7 +12,7 @@ export default function HallOfFameTeaser() {
 
       <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-8 text-center">
         <p className="text-white/60">
-          Winners will appear here after the first PANH celebration.
+          Winners will appear here after the first PAMH celebration.
         </p>
       </div>
     </SectionContainer>

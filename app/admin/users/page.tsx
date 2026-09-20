@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from "react";
 
+type Invitation = {
+  email: string;
+  role: string;
+  setupUrl: string;
+};
+
 export default function UsersPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("COUNCIL");
   const [users, setUsers] = useState<any[]>([]);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [invitation, setInvitation] = useState<Invitation | null>(null);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const [loading, setLoading] = useState(false);
 
   async function fetchUsers() {
@@ -36,7 +43,8 @@ export default function UsersPage() {
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    setSuccess("");
+    setInvitation(null);
+    setCopyState("idle");
     setLoading(true);
 
     try {
@@ -51,11 +59,16 @@ export default function UsersPage() {
       if (!res.ok) {
         setError(data.error || "Failed to create user.");
       } else {
-        setSuccess("Account created. Password setup is pending.");
+        if (typeof data.setupUrl !== "string") {
+          setError("The invitation was created, but its setup link was not returned. Contact support before inviting this person again.");
+          await fetchUsers();
+          return;
+        }
+        setInvitation({ email: data.email, role: data.role, setupUrl: data.setupUrl });
         setName("");
         setEmail("");
         setRole("COUNCIL");
-        fetchUsers();
+        await fetchUsers();
       }
     } catch (err) {
       setError("An unexpected error occurred.");
@@ -64,21 +77,41 @@ export default function UsersPage() {
     }
   }
 
+  async function copySetupLink() {
+    if (!invitation) return;
+
+    try {
+      await navigator.clipboard.writeText(invitation.setupUrl);
+      setCopyState("copied");
+      window.setTimeout(() => setCopyState("idle"), 2000);
+    } catch {
+      setCopyState("error");
+    }
+  }
+
+  function closeInvitation() {
+    setInvitation(null);
+    setCopyState("idle");
+  }
+
+  useEffect(() => {
+    if (!invitation) return;
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") closeInvitation();
+    }
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [invitation]);
+
   return (
     <div>
       <h1>Team / Users</h1>
       <p style={{ color: "gray" }}>Create a passwordless team account and choose its access. Password setup status is tracked below.</p>
-      <p style={{ color: "#8a6b35", fontSize: 12 }}>The app creates a 24-hour setup token, but it does not currently send an invite email or show a setup link.</p>
-
       {error && (
         <div style={{ padding: 12, marginBottom: 16, backgroundColor: "#f8d7da", color: "#721c24", borderRadius: 4 }}>
           {error}
-        </div>
-      )}
-
-      {success && (
-        <div style={{ padding: 12, marginBottom: 16, backgroundColor: "#d4edda", color: "#155724", borderRadius: 4 }}>
-          {success}
         </div>
       )}
 
@@ -171,6 +204,42 @@ export default function UsersPage() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {invitation && (
+        <div
+          role="presentation"
+          style={{ position: "fixed", inset: 0, zIndex: 1000, display: "grid", placeItems: "center", padding: 20, background: "rgba(12, 15, 20, 0.62)" }}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="invitation-title"
+            style={{ width: "100%", maxWidth: 520, padding: 24, borderRadius: 10, background: "#fff", color: "#111", border: "1px solid #ddd", boxShadow: "0 18px 60px rgba(0,0,0,.24)" }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
+              <div>
+                <h2 id="invitation-title" style={{ margin: 0 }}>Team member invited</h2>
+                <p style={{ margin: "8px 0 0", color: "#555" }}>Send this private setup link to the invited team member. It expires in 24 hours and will not be shown again.</p>
+              </div>
+              <button type="button" onClick={closeInvitation} aria-label="Close invitation details" style={{ border: "1px solid #ddd", borderRadius: 6, background: "#fff", color: "#333", padding: "6px 10px", cursor: "pointer" }}>Close</button>
+            </div>
+
+            <dl style={{ display: "grid", gridTemplateColumns: "100px minmax(0, 1fr)", gap: "10px 12px", margin: "22px 0" }}>
+              <dt style={{ color: "#666" }}>Email</dt><dd style={{ margin: 0, overflowWrap: "anywhere" }}>{invitation.email}</dd>
+              <dt style={{ color: "#666" }}>Role</dt><dd style={{ margin: 0 }}>{invitation.role}</dd>
+              <dt style={{ color: "#666" }}>Expires</dt><dd style={{ margin: 0 }}>24 hours</dd>
+            </dl>
+
+            <label htmlFor="setup-link" style={{ display: "block", marginBottom: 6, fontWeight: 600 }}>Setup URL</label>
+            <input id="setup-link" type="text" readOnly value={invitation.setupUrl} onFocus={(event) => event.currentTarget.select()} style={{ width: "100%", boxSizing: "border-box", padding: 10, border: "1px solid #bbb", borderRadius: 5, background: "#fafafa", color: "#222" }} />
+            <button type="button" onClick={copySetupLink} style={{ marginTop: 12, padding: "10px 16px", background: "#0070f3", color: "white", border: "none", borderRadius: 5, cursor: "pointer", fontWeight: 600 }}>
+              {copyState === "copied" ? "Copied" : "Copy setup link"}
+            </button>
+            {copyState === "error" && <p role="status" style={{ margin: "10px 0 0", color: "#9b1c1c", fontSize: 14 }}>Could not copy automatically. Select the URL above and copy it manually.</p>}
+            {copyState === "copied" && <span role="status" style={{ marginLeft: 10, color: "#25643b", fontSize: 14 }}>Copied to clipboard.</span>}
+          </section>
         </div>
       )}
     </div>

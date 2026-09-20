@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
-        <Link href="/admin" className="admin-brand"><span className="admin-brand-mark">P</span><span><strong>PANH</strong><small>Administration</small></span></Link>
+        <Link href="/admin" className="admin-brand"><span className="admin-brand-mark">P</span><span><strong>PAMH</strong><small>Administration</small></span></Link>
         <p className="admin-nav-label">WORKSPACE</p>
         <nav aria-label="Admin navigation" className="admin-nav">
           {allowedLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}

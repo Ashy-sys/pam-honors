@@ -51,14 +51,26 @@ export async function POST(req: Request) {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await prisma.user.update({
-    where: { id: user.id },
+  const consumed = await prisma.user.updateMany({
+    where: {
+      id: user.id,
+      setupTokenHash,
+      setupTokenExpires: { gte: new Date() },
+      password: null,
+    },
     data: {
       password: hashedPassword,
       setupTokenHash: null,
       setupTokenExpires: null,
     },
   });
+
+  if (consumed.count !== 1) {
+    return NextResponse.json(
+      { error: "Invalid or expired setup token" },
+      { status: 400 }
+    );
+  }
 
   return NextResponse.json(
     { message: "Password setup successfully" },

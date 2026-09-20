@@ -9,7 +9,7 @@ export default function JudgesPage() {
       <div className="relative mx-auto max-w-4xl text-center">
 
         <p className="text-xs uppercase tracking-[0.45em] text-gold">
-          PANH 2026
+          PAMH 2026
         </p>
 
         <h1 className="mt-6 font-display text-5xl md:text-7xl">
@@ -27,7 +27,7 @@ export default function JudgesPage() {
           </h2>
 
           <p className="mt-4 leading-7 text-white/40">
-            The official PANH judging panel will be announced
+            The official PAMH judging panel will be announced
             soon. Check back for the full panel announcement.
           </p>
 
@@ -37,7 +37,7 @@ export default function JudgesPage() {
           href="/"
           className="mt-8 inline-block text-sm text-white/40 transition hover:text-gold"
         >
-          ? Back to PANH
+          ? Back to PAMH
         </Link>
 
       </div>

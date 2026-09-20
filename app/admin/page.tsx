@@ -27,12 +27,12 @@ export default async function AdminPage() {
   ];
   const actions = [
     ...(canManage ? [{ label: "Add nominee", href: "/admin/nominees", note: "Create or update a nominee" }, { label: "Manage categories", href: "/admin/categories", note: "Review the awards programme" }] : []),
-    ...(isSuper ? [{ label: "Invite team member", href: "/admin/users", note: "Add a PANH team account" }] : []),
+    ...(isSuper ? [{ label: "Invite team member", href: "/admin/users", note: "Add a PAMH team account" }] : []),
     { label: "View results", href: "/admin/results", note: "Review category standings" },
   ];
 
   return <div>
-    <div style={{ marginBottom: 30 }}><p style={{ margin: "0 0 9px", color: "#8a6b35", fontSize: 11, letterSpacing: ".16em", fontWeight: 700 }}>PANH WORKSPACE</p><h1>Good to see you, {session?.user?.name?.split(" ")[0] || "team"}</h1><p style={{ color: "#6d6961", margin: 0 }}>Here’s the current picture across the awards programme.</p></div>
+    <div style={{ marginBottom: 30 }}><p style={{ margin: "0 0 9px", color: "#8a6b35", fontSize: 11, letterSpacing: ".16em", fontWeight: 700 }}>PAMH WORKSPACE</p><h1>Good to see you, {session?.user?.name?.split(" ")[0] || "team"}</h1><p style={{ color: "#6d6961", margin: 0 }}>Here’s the current picture across the awards programme.</p></div>
     <div className="admin-stat-grid">{stats.map((stat) => <Link key={stat.label} href={stat.href} className="admin-stat"><span>{stat.label}</span><strong>{stat.value.toLocaleString()}</strong><small>Open {stat.label.toLowerCase()} →</small></Link>)}</div>
     <p style={{ color: "#817b71", fontSize: 11, margin: "10px 0 0" }}>Public nominations and managed nominees share the same records in the current system.</p>
     <div className="admin-overview-grid">

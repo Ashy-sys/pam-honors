@@ -5,7 +5,7 @@ export default function Footer() {
 
         <div>
           <h2 className="font-display text-2xl text-gold">
-            PANH
+            PAMH
           </h2>
           <p className="mt-3 text-sm text-ink-muted">
             Celebrating excellence, creativity, and achievement.
@@ -31,14 +31,14 @@ export default function Footer() {
           </h3>
 
           <p className="mt-4 text-sm text-ink-muted">
-            Official PANH platform
+            Official PAMH platform
           </p>
         </div>
 
       </div>
 
       <div className="mt-10 text-center text-xs text-ink-muted">
-        © {new Date().getFullYear()} PANH. All rights reserved.
+        © {new Date().getFullYear()} PAMH. All rights reserved.
       </div>
     </footer>
   );

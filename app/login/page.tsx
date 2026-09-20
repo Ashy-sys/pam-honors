@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +36,11 @@ export default function LoginPage() {
 
   return (
     <div style={{ maxWidth: 400, margin: "80px auto" }}>
-      <h1>Login to PANH</h1>
+      <h1>Login to PAMH</h1>
+
+      {searchParams.get("setup") === "complete" && (
+        <p role="status" style={{ color: "#25643b", marginTop: 10 }}>Your account is ready. You can now log in.</p>
+      )}
 
       <form onSubmit={handleLogin}>
         <input
@@ -67,5 +72,13 @@ export default function LoginPage() {
         )}
       </form>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={{ maxWidth: 400, margin: "80px auto" }}>Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
