@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   return (
     <div style={{ maxWidth: 400, margin: "80px auto" }}>
-      <h1>Login to PAM Honors</h1>
+      <h1>Login to PANH</h1>
 
       <form onSubmit={handleLogin}>
         <input

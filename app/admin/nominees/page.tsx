@@ -128,7 +128,7 @@ export default function NomineesPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: 600, background: "#f9f9f9", padding: 20, borderRadius: 8, border: "1px solid #ddd" }}>
+      <form onSubmit={handleSubmit} style={{ maxWidth: 600, background: "#f9f9f9", color: "#111", padding: 20, borderRadius: 8, border: "1px solid #ddd" }}>
         <h3>{editingId ? "Edit Nominee" : "Add New Nominee"}</h3>
 
         <div style={{ margin: "12px 0" }}>
@@ -139,7 +139,7 @@ export default function NomineesPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 
@@ -149,7 +149,7 @@ export default function NomineesPage() {
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             required
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           >
             <option value="">Select Category</option>
             {categories.map((c: any) => (
@@ -167,7 +167,7 @@ export default function NomineesPage() {
             placeholder="e.g. Uganda"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 
@@ -178,7 +178,7 @@ export default function NomineesPage() {
             placeholder="https://..."
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 
@@ -189,7 +189,7 @@ export default function NomineesPage() {
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={3}
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 

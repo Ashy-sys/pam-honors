@@ -48,7 +48,7 @@ export default function Hero() {
             <span className="h-px w-12 bg-gold" />
 
             <p className="text-xs font-medium uppercase tracking-[0.45em] text-gold">
-              PAM Honors 2027
+              PANH 2027
             </p>
           </motion.div>
 
@@ -75,7 +75,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.35 }}
             className="mt-9 max-w-2xl text-base leading-8 text-white/70 md:text-lg"
           >
-            PAM Honors celebrates outstanding artists, creators and
+            PANH celebrates outstanding artists, creators and
             contributors across East Africa through a celebration of music,
             creativity and achievement.
           </motion.p>
@@ -119,7 +119,7 @@ export default function Hero() {
               </p>
 
               <p className="mt-2 text-sm text-white/80">
-                PAM Honors 2027
+                PANH 2027
               </p>
             </div>
 

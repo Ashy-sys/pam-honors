@@ -23,7 +23,7 @@ function CountdownBox({
 }
 
 export default function Countdown() {
-  // PAM Honors 2027
+  // PANH 2027
   // Event date: 14 February 2027 at 8:00 PM
   const targetDate = new Date("2027-02-14T20:00:00").getTime();
 
@@ -80,7 +80,7 @@ export default function Countdown() {
         </p>
 
         <h2 className="mb-10 font-display text-4xl text-ink md:text-5xl">
-          PAM Honors Night
+          The Honor Night
         </h2>
 
         <div className="grid grid-cols-2 gap-5 md:grid-cols-4">

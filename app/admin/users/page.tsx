@@ -51,7 +51,7 @@ export default function UsersPage() {
       if (!res.ok) {
         setError(data.error || "Failed to create user.");
       } else {
-        setSuccess("User created successfully (Pending password setup).");
+        setSuccess("Account created. Password setup is pending.");
         setName("");
         setEmail("");
         setRole("COUNCIL");
@@ -66,8 +66,9 @@ export default function UsersPage() {
 
   return (
     <div>
-      <h1>User Management</h1>
-      <p style={{ color: "gray" }}>Create and manage system users (SUPER_ADMIN only).</p>
+      <h1>Team / Users</h1>
+      <p style={{ color: "gray" }}>Create a passwordless team account and choose its access. Password setup status is tracked below.</p>
+      <p style={{ color: "#8a6b35", fontSize: 12 }}>The app creates a 24-hour setup token, but it does not currently send an invite email or show a setup link.</p>
 
       {error && (
         <div style={{ padding: 12, marginBottom: 16, backgroundColor: "#f8d7da", color: "#721c24", borderRadius: 4 }}>
@@ -81,8 +82,8 @@ export default function UsersPage() {
         </div>
       )}
 
-      <form onSubmit={handleCreate} style={{ marginTop: 20, maxWidth: 500, background: "#f9f9f9", padding: 20, borderRadius: 8, border: "1px solid #ddd" }}>
-        <h3>Create New User</h3>
+      <form onSubmit={handleCreate} style={{ marginTop: 20, maxWidth: 500, background: "#f9f9f9", color: "#111", padding: 20, borderRadius: 8, border: "1px solid #ddd" }}>
+        <h3>Create team account</h3>
 
         <div style={{ margin: "12px 0" }}>
           <label style={{ display: "block", marginBottom: 4, fontWeight: 500 }}>Name</label>
@@ -92,7 +93,7 @@ export default function UsersPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 
@@ -104,7 +105,7 @@ export default function UsersPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           />
         </div>
 
@@ -113,7 +114,7 @@ export default function UsersPage() {
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            style={{ width: "100%", padding: 8, boxSizing: "border-box" }}
+            style={{ width: "100%", padding: 8, boxSizing: "border-box", background: "#fff", color: "#111", border: "1px solid #999", borderRadius: 4 }}
           >
             <option value="SUPER_ADMIN">SUPER_ADMIN</option>
             <option value="ADMIN">ADMIN</option>
@@ -127,20 +128,20 @@ export default function UsersPage() {
           disabled={loading}
           style={{ padding: "10px 16px", background: "#0070f3", color: "white", border: "none", borderRadius: 4, cursor: "pointer", fontWeight: 600 }}
         >
-          {loading ? "Creating..." : "Create User"}
+            {loading ? "Creating account…" : "Create account"}
         </button>
       </form>
 
       <hr style={{ margin: "30px 0" }} />
 
-      <h3>Existing Users</h3>
+      <h3>Team members</h3>
       {users.length === 0 ? (
         <p style={{ color: "gray" }}>No users found.</p>
       ) : (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 10 }}>
             <thead>
-              <tr style={{ background: "#f1f1f1", textAlign: "left" }}>
+              <tr style={{ background: "#f1f1f1", color: "#111", textAlign: "left" }}>
                 <th style={{ padding: 10, borderBottom: "1px solid #ddd" }}>Name</th>
                 <th style={{ padding: 10, borderBottom: "1px solid #ddd" }}>Email</th>
                 <th style={{ padding: 10, borderBottom: "1px solid #ddd" }}>Role</th>
@@ -157,7 +158,7 @@ export default function UsersPage() {
                   <td style={{ padding: 10 }}>
                     {u.isPending ? (
                       <span style={{ background: "#fff3cd", color: "#856404", padding: "2px 6px", borderRadius: 4, fontSize: 12, fontWeight: 600 }}>
-                        Pending (Setup Token)
+                        Setup pending
                       </span>
                     ) : (
                       <span style={{ background: "#d4edda", color: "#155724", padding: "2px 6px", borderRadius: 4, fontSize: 12, fontWeight: 600 }}>

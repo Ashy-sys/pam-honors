@@ -5,8 +5,12 @@ import { NextResponse } from "next/server";
 
 // GET all votes (used by admin dashboard)
 export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role ?? "")) {
+    return NextResponse.json({ error: "You do not have permission to view vote administration." }, { status: 403 });
+  }
   const votes = await prisma.vote.findMany({
-    include: { category: true, nominee: true, user: true },
+    include: { category: true, nominee: true },
     orderBy: { createdAt: "desc" },
   });
 

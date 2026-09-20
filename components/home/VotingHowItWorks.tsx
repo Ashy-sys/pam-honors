@@ -34,7 +34,7 @@ export default function VotingHowItWorks() {
             3. Celebrate
           </h3>
           <p className="mt-3 text-white/60">
-            Winners are revealed during the PAM Honors celebration.
+            Winners are revealed during The Honor celebration.
           </p>
         </div>
       </div>

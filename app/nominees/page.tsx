@@ -9,7 +9,7 @@ export default function NomineesPage() {
       <div className="relative mx-auto max-w-4xl text-center">
 
         <p className="text-xs uppercase tracking-[0.45em] text-gold">
-          PAM Honors 2026
+          PANH 2026
         </p>
 
         <h1 className="mt-6 font-display text-5xl md:text-7xl">
@@ -27,7 +27,7 @@ export default function NomineesPage() {
           </h2>
 
           <p className="mt-4 leading-7 text-white/40">
-            The official PAM Honors 2026 nominees will be announced
+            The official PANH 2026 nominees will be announced
             after the nomination process is completed.
           </p>
 
@@ -37,7 +37,7 @@ export default function NomineesPage() {
           href="/"
           className="mt-8 inline-block text-sm text-white/40 transition hover:text-gold"
         >
-          ? Back to PAM Honors
+          ? Back to PANH
         </Link>
 
       </div>

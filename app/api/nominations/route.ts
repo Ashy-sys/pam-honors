@@ -3,6 +3,13 @@ import { NextResponse } from "next/server";
 
 // GET all public nominations (nominees), most recent first
 export async function GET() {
+  const { getServerSession } = await import("next-auth");
+  const { authOptions } = await import("@/lib/auth-options");
+  const session = await getServerSession(authOptions);
+  if (!session?.user || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role ?? "")) {
+    return NextResponse.json({ error: "You do not have permission to view nominations." }, { status: 403 });
+  }
+
   const nominations = await prisma.nominee.findMany({
     include: { category: true },
     orderBy: { createdAt: "desc" },
@@ -11,7 +18,7 @@ export async function GET() {
   return NextResponse.json(nominations);
 }
 
-// CREATE a nomination — saves as a Nominee tied to a real Category via categoryId
+// Public nomination submission — saved through the existing nominee model.
 export async function POST(req: Request) {
   const body = await req.json();
   const { name, categoryId, reason, country } = body;

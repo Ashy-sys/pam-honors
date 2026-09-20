@@ -7,7 +7,7 @@ export default function NewsTeaser() {
       <SectionHeading
         eyebrow="News"
         title="Latest updates"
-        description="Stay informed with the latest PAM Honors announcements."
+        description="Stay informed with the latest PANH announcements."
       />
 
       <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-8 text-center">

@@ -8,8 +8,8 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role ?? "")) {
+    return NextResponse.json({ error: "You do not have permission to update nominees." }, { status: 403 });
   }
 
   const resolvedParams = await Promise.resolve(params);
@@ -53,8 +53,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role ?? "")) {
+    return NextResponse.json({ error: "You do not have permission to remove nominees." }, { status: 403 });
   }
 
   const resolvedParams = await Promise.resolve(params);

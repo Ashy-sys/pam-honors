@@ -2,8 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Providers from "./providers/SessionProvider";
 
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import SiteChrome from "@/components/layout/SiteChrome";
 
 import {
   Fraunces,
@@ -48,19 +47,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "PAM Honors | Pan Africa Music Honors Uganda",
-    template: "%s | PAM Honors",
+    default: "PANH | Pan Africa Music Honors",
+    template: "%s | PANH",
   },
 
   description:
-    "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
+    "Pan Africa Music Honors (PANH) celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
 
-  applicationName: "PAM Honors",
+  applicationName: "PANH",
 
   keywords: [
-    "PAM Honors",
+    "PANH",
     "Pan Africa Music Honors",
-    "PAM Honors Uganda",
+    "PANH Uganda",
     "Pan Africa Music Honors Uganda",
     "Uganda music awards",
     "Ugandan music",
@@ -83,17 +82,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_UG",
     url: siteUrl,
-    siteName: "PAM Honors",
-    title: "PAM Honors | Pan Africa Music Honors Uganda",
+    siteName: "PANH",
+    title: "PANH | Pan Africa Music Honors",
     description:
-      "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
+      "Pan Africa Music Honors (PANH) celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
   },
 
   twitter: {
     card: "summary",
-    title: "PAM Honors | Pan Africa Music Honors Uganda",
+    title: "PANH | Pan Africa Music Honors",
     description:
-      "PAM Honors, the Pan Africa Music Honors, celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
+      "Pan Africa Music Honors (PANH) celebrates Ugandan music through transparent recognition, public participation, and industry-led judging.",
   },
 };
 
@@ -101,8 +100,8 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${siteUrl}/#organization`,
-  name: "PAM Honors",
-  alternateName: "Pan Africa Music Honors",
+  name: "PANH",
+  alternateName: "Pan Africa Music Honors Uganda",
   url: siteUrl,
   logo: `${siteUrl}/icon.png`,
 };
@@ -112,8 +111,8 @@ const websiteJsonLd = {
   "@type": "WebSite",
   "@id": `${siteUrl}/#website`,
   url: siteUrl,
-  name: "PAM Honors",
-  alternateName: "Pan Africa Music Honors",
+  name: "PANH",
+  alternateName: "Pan Africa Music Honors Uganda",
   publisher: {
     "@id": `${siteUrl}/#organization`,
   },
@@ -150,11 +149,7 @@ export default function RootLayout({
         />
 
         <Providers>
-          <Navbar />
-
-          <main>{children}</main>
-
-          <Footer />
+          <SiteChrome>{children}</SiteChrome>
         </Providers>
       </body>
     </html>

@@ -10,13 +10,13 @@ export default function DesignTestPage() {
       <GradientBackground>
         <div className="mx-auto max-w-5xl px-6 py-20">
           <Badge variant="gold">
-            PAM Honors 2026
+            PANH 2026
           </Badge>
 
           <SectionHeading
             eyebrow="Awards Platform"
             title="Celebrating excellence and talent"
-            description="A premium design preview for the PAM Honors experience."
+            description="A premium design preview for the PANH experience."
           />
 
           <div className="flex gap-4">
@@ -41,7 +41,7 @@ export default function DesignTestPage() {
                 </h3>
 
                 <p className="mt-3 text-ink-muted">
-                  This card tests the new PAM Honors premium surface.
+                  This card tests the new PANH premium surface.
                 </p>
               </div>
             </Card>
